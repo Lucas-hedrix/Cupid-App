@@ -15,6 +15,7 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -93,6 +94,7 @@
       border-radius: 999px; margin-bottom: 28px;
       border: 1px solid rgba(255,107,53,0.2);
     }
+    .hero-badge i { font-size: 11px; }
     .hero h1 {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(52px, 8vw, 88px);
@@ -240,7 +242,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">✦ Cupid</a>
+    <a href="#" class="nav-logo"><i class="fa-solid fa-heart"></i> Cupid</a>
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
@@ -251,14 +253,14 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge">✦ Dating reimagined</div>
+    <div class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Dating reimagined</div>
     <h1>Find your <em>perfect</em><br />match today</h1>
     <p>Cupid connects you with people who share your interests, star sign, and values — because real love starts with real compatibility.</p>
     <div class="hero-actions">
       <a href="https://drive.google.com/uc?export=download&id=1h7JswoSSiydojukaAV2ArGOJW8aK_zMK" class="btn-primary">
-        ⬇ Download for Android
+        <i class="fa-solid fa-download"></i> Download for Android
       </a>
-      <a href="#how" class="btn-secondary">How it works →</a>
+      <a href="#how" class="btn-secondary">How it works <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="hero-stats">
       <div class="stat">
@@ -270,7 +272,7 @@
         <div class="stat-label">Matches made</div>
       </div>
       <div class="stat">
-        <div class="stat-value">4.8★</div>
+        <div class="stat-value">4.8 <i class="fa-solid fa-star" style="font-size:22px;color:var(--gold);"></i></div>
         <div class="stat-label">App rating</div>
       </div>
     </div>
@@ -285,32 +287,32 @@
 
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">✦</div>
+          <div class="feature-icon"><i class="fa-solid fa-star"></i></div>
           <div class="feature-title">Astrology Matching</div>
           <div class="feature-desc">Get matched with people whose star signs are compatible with yours. Science meets the stars for better connections.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔥</div>
+          <div class="feature-icon"><i class="fa-solid fa-fire"></i></div>
           <div class="feature-title">Smart Discover</div>
           <div class="feature-desc">Swipe through curated profiles ranked by compatibility score. Like, pass, or send a super like to stand out.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">💬</div>
+          <div class="feature-icon"><i class="fa-solid fa-comments"></i></div>
           <div class="feature-title">Instant Messaging</div>
           <div class="feature-desc">Chat with your matches in real time. Share posts, react with emojis, and never miss a message with read receipts.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🌍</div>
+          <div class="feature-icon"><i class="fa-solid fa-earth-americas"></i></div>
           <div class="feature-title">Location Discovery</div>
           <div class="feature-desc">Find people near you or explore profiles from around the world. Your region, your rules.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">📸</div>
+          <div class="feature-icon"><i class="fa-solid fa-camera"></i></div>
           <div class="feature-title">Rich Profiles</div>
           <div class="feature-desc">Showcase up to 9 photos, your hobbies, interests, and star sign. Let your personality shine before you say hello.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🛡️</div>
+          <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
           <div class="feature-title">Privacy First</div>
           <div class="feature-desc">Control who sees you, hide your last seen, and go incognito any time. Your safety is our priority.</div>
         </div>
@@ -349,17 +351,17 @@
     <h2 class="section-title">Your person is<br />waiting for you</h2>
     <p class="section-sub">Join thousands of people already finding meaningful connections on Cupid. It's free.</p>
     <a href="https://drive.google.com/uc?export=download&id=1h7JswoSSiydojukaAV2ArGOJW8aK_zMK"
-       class="btn-primary" style="display:inline-flex;">
-      ⬇ Download APK — Free
+       class="btn-primary" style="display:inline-flex;align-items:center;gap:10px;">
+      <i class="fa-solid fa-download"></i> Download APK — Free
     </a>
-    <p style="margin-top:16px; font-size:13px; color:var(--stone);">Android · v1.0.0 · Requires Android 6.0+</p>
+    <p style="margin-top:16px; font-size:13px; color:var(--stone);"><i class="fa-brands fa-android"></i> Android · v1.0.0 · Requires Android 6.0+</p>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-top">
       <div>
-        <div class="footer-brand">✦ Cupid</div>
+        <div class="footer-brand"><i class="fa-solid fa-heart"></i> Cupid</div>
         <div class="footer-tagline">Find your perfect match.</div>
       </div>
       <div class="footer-links">
@@ -371,7 +373,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      © 2026 Cupid. All rights reserved. Made with ♥
+      © 2026 Cupid. All rights reserved. Made with <i class="fa-solid fa-heart" style="color:var(--ember);"></i>
     </div>
   </footer>
 

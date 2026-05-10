@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cupid — Find Your Match</title>
+  <meta name="description" content="Cupid is a modern dating app that connects people through astrology, shared interests, and genuine connections." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ember:       #FF6B35;
+      --ember-light: #FFF0EB;
+      --gold:        #F5A623;
+      --ink:         #1A1A2E;
+      --graphite:    #4A4A68;
+      --stone:       #8888A8;
+      --fog:         #E8E8F0;
+      --snow:        #FAFAFA;
+      --white:       #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--fog);
+    }
+    .nav-logo {
+      font-size: 22px; font-weight: 700; color: var(--ember);
+      text-decoration: none; letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 15px; color: var(--graphite); text-decoration: none;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ember); }
+    .nav-cta {
+      background: var(--ember); color: var(--white) !important;
+      padding: 10px 24px; border-radius: 999px; font-weight: 600 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background: linear-gradient(160deg, #fff5f2 0%, #ffffff 50%, #fff0f8 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -150px; left: -150px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--ember-light); color: var(--ember);
+      font-size: 13px; font-weight: 600; padding: 8px 18px;
+      border-radius: 999px; margin-bottom: 28px;
+      border: 1px solid rgba(255,107,53,0.2);
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(52px, 8vw, 88px);
+      line-height: 1.05; letter-spacing: -2px;
+      color: var(--ink); margin-bottom: 24px;
+    }
+    .hero h1 em { color: var(--ember); font-style: italic; }
+    .hero p {
+      font-size: clamp(17px, 2vw, 20px);
+      color: var(--graphite); max-width: 540px;
+      margin: 0 auto 44px; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ember); color: var(--white);
+      padding: 16px 36px; border-radius: 999px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 8px 24px rgba(255,107,53,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,107,53,0.4); }
+    .btn-secondary {
+      background: var(--white); color: var(--ink);
+      padding: 16px 36px; border-radius: 999px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      border: 1.5px solid var(--fog);
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--ember); color: var(--ember); }
+
+    .hero-stats {
+      display: flex; gap: 48px; justify-content: center; margin-top: 72px;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-value { font-size: 32px; font-weight: 800; color: var(--ink); letter-spacing: -1px; }
+    .stat-label { font-size: 13px; color: var(--stone); font-weight: 500; margin-top: 4px; }
+
+    /* ── FEATURES ── */
+    .section {
+      padding: 100px 24px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-label {
+      font-size: 12px; font-weight: 700; color: var(--ember);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 52px);
+      line-height: 1.1; letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 18px; color: var(--graphite); max-width: 560px; line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; margin-top: 60px;
+    }
+    .feature-card {
+      background: var(--snow); border: 1px solid var(--fog);
+      border-radius: 24px; padding: 36px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--ember-light); display: flex; align-items: center;
+      justify-content: center; font-size: 24px; margin-bottom: 20px;
+    }
+    .feature-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .feature-desc { font-size: 15px; color: var(--graphite); line-height: 1.7; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      background: linear-gradient(135deg, #1A1A2E 0%, #2D1B4E 100%);
+      padding: 100px 24px; text-align: center;
+    }
+    .how-section .section-label { color: var(--gold); }
+    .how-section .section-title { color: var(--white); }
+    .how-section .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto; }
+
+    .steps {
+      display: flex; justify-content: center; gap: 40px;
+      margin-top: 64px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .step { text-align: center; max-width: 220px; }
+    .step-number {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--ember); color: var(--white);
+      font-size: 20px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 20px rgba(255,107,53,0.4);
+    }
+    .step-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .step-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 100px 24px; text-align: center;
+      background: var(--snow);
+    }
+    .cta-section .section-title { margin-bottom: 20px; }
+    .cta-section .section-sub { margin: 0 auto 40px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.5);
+      padding: 48px 48px 32px;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 32px; margin-bottom: 40px;
+    }
+    .footer-brand { font-size: 20px; font-weight: 700; color: var(--ember); margin-bottom: 8px; }
+    .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.4); }
+    .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ember); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;
+      font-size: 13px; text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 28px; }
+      .steps { gap: 28px; }
+      footer { padding: 40px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">✦ Cupid</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="#download" class="nav-cta">Download</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">✦ Dating reimagined</div>
+    <h1>Find your <em>perfect</em><br />match today</h1>
+    <p>Cupid connects you with people who share your interests, star sign, and values — because real love starts with real compatibility.</p>
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">✦ Download Cupid</a>
+      <a href="#how" class="btn-secondary">How it works →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">10k+</div>
+        <div class="stat-label">Active users</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">500+</div>
+        <div class="stat-label">Matches made</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">4.8★</div>
+        <div class="stat-label">App rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <div id="features">
+    <div class="section">
+      <div class="section-label">Why Cupid</div>
+      <h2 class="section-title">Built for genuine<br />connections</h2>
+      <p class="section-sub">We go beyond swipes. Cupid uses astrology, shared interests, and smart matching to help you find someone truly compatible.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">✦</div>
+          <div class="feature-title">Astrology Matching</div>
+          <div class="feature-desc">Get matched with people whose star signs are compatible with yours. Science meets the stars for better connections.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔥</div>
+          <div class="feature-title">Smart Discover</div>
+          <div class="feature-desc">Swipe through curated profiles ranked by compatibility score. Like, pass, or send a super like to stand out.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <div class="feature-title">Instant Messaging</div>
+          <div class="feature-desc">Chat with your matches in real time. Share posts, react with emojis, and never miss a message with read receipts.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <div class="feature-title">Location Discovery</div>
+          <div class="feature-desc">Find people near you or explore profiles from around the world. Your region, your rules.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📸</div>
+          <div class="feature-title">Rich Profiles</div>
+          <div class="feature-desc">Showcase up to 9 photos, your hobbies, interests, and star sign. Let your personality shine before you say hello.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <div class="feature-title">Privacy First</div>
+          <div class="feature-desc">Control who sees you, hide your last seen, and go incognito any time. Your safety is our priority.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="section-label">Simple process</div>
+    <h2 class="section-title">Ready in 3 minutes</h2>
+    <p class="section-sub">Getting started with Cupid is fast, free, and fun.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">Create your profile</div>
+        <div class="step-desc">Sign up in seconds with email or Google. Add photos and tell people a bit about yourself.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">Discover people</div>
+        <div class="step-desc">Browse profiles ranked by compatibility. Swipe right to like, left to pass.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">Start connecting</div>
+        <div class="step-desc">When it's mutual, you match! Send a message and let the conversation begin.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="download">
+    <div class="section-label">Get started</div>
+    <h2 class="section-title">Your person is<br />waiting for you</h2>
+    <p class="section-sub">Join thousands of people already finding meaningful connections on Cupid. It's free.</p>
+    <a href="#" class="btn-primary" style="display:inline-flex;">✦ Download Cupid — It's Free</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">✦ Cupid</div>
+        <div class="footer-tagline">Find your perfect match.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:support@cupidapp.com">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Cupid. All rights reserved. Made with ♥
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -200,6 +200,42 @@
     .step-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
     .step-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; }
 
+    /* ── APP PREVIEW ── */
+    .preview-section {
+      padding: 100px 24px;
+      text-align: center;
+      background: var(--snow);
+    }
+    .preview-grid {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    .preview-img-wrapper {
+      position: relative;
+      border-radius: 32px;
+      padding: 8px;
+      background: var(--white);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border: 1px solid var(--fog);
+      width: 100%;
+      max-width: 280px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .preview-img-wrapper:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 48px rgba(0,0,0,0.12);
+    }
+    .preview-img-wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+      display: block;
+      border: 1px solid var(--fog);
+    }
+
     /* ── CTA ── */
     .cta-section {
       padding: 100px 24px; text-align: center;
@@ -238,6 +274,10 @@
       footer { padding: 40px 20px 24px; }
     }
   </style>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8080151298509561"
+     crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -265,16 +305,16 @@
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-value">10k+</div>
-        <div class="stat-label">Active users</div>
+        <div class="stat-value"><i class="fa-solid fa-fire" style="color:var(--ember);"></i></div>
+        <div class="stat-label">Fast growing community</div>
       </div>
       <div class="stat">
-        <div class="stat-value">500+</div>
-        <div class="stat-label">Communities formed</div>
+        <div class="stat-value"><i class="fa-solid fa-star" style="color:var(--gold);"></i></div>
+        <div class="stat-label">Early access</div>
       </div>
       <div class="stat">
-        <div class="stat-value">4.8 <i class="fa-solid fa-star" style="font-size:22px;color:var(--gold);"></i></div>
-        <div class="stat-label">App rating</div>
+        <div class="stat-value"><i class="fa-solid fa-users-rays" style="color:var(--graphite);"></i></div>
+        <div class="stat-label">Join the first Users</div>
       </div>
     </div>
   </section>
@@ -320,6 +360,25 @@
       </div>
     </div>
   </div>
+
+  <!-- APP PREVIEW -->
+  <section class="preview-section" id="preview">
+    <div class="section-label">Sneak Peek</div>
+    <h2 class="section-title">See Cupid in action</h2>
+    <p class="section-sub" style="margin: 0 auto;">Take a look at the beautiful and intuitive interface designed to make connecting effortless.</p>
+    
+    <div class="preview-grid">
+      <div class="preview-img-wrapper">
+        <img src="screenshot-discover.png" alt="Discover Screen" />
+      </div>
+      <div class="preview-img-wrapper">
+        <img src="screenshot-profile.png" alt="Profile Screen" />
+      </div>
+      <div class="preview-img-wrapper">
+        <img src="screenshot-circles.png" alt="Circles Screen" />
+      </div>
+    </div>
+  </section>
 
   <!-- HOW IT WORKS -->
   <section class="how-section" id="how">

@@ -2,438 +2,969 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
   <meta name="google-site-verification" content="XgwDMYEv0IWUsRsv0nZNs-8jgshLzxcuGaYDkPX1pMY" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cupid — MEET NEW PEOPLE</title>
-  <meta name="description" content="Cupid is a modern social discovery app that connects people through shared interests, communities, and genuine interactions." />
+  <title>Cupid — Meet people who share your vibe</title>
+  <meta name="description" content="Cupid is a social discovery app for finding people through shared interests, circles, and genuine conversation — not endless swiping." />
   <link rel="icon" type="image/png" href="icon.png" sizes="512x512" />
   <link rel="shortcut icon" href="icon.png" />
   <link rel="apple-touch-icon" href="icon.png" />
-  <meta property="og:title" content="Cupid — MEET NEW PEOPLE" />
-  <meta property="og:description" content="Connect with people who share your vibe, join circles, and spark real friendships." />
+  <meta property="og:title" content="Cupid — Meet people who share your vibe" />
+  <meta property="og:description" content="Connect through shared interests, join circles, and spark real conversations." />
   <meta property="og:image" content="https://lucas-hedrix.github.io/Cupid-App/icon.png" />
   <meta property="og:url" content="https://lucas-hedrix.github.io/Cupid-App/" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ember:       #FF6B35;
-      --ember-light: #FFF0EB;
-      --gold:        #F5A623;
-      --ink:         #1A1A2E;
-      --graphite:    #4A4A68;
-      --stone:       #8888A8;
-      --fog:         #E8E8F0;
-      --snow:        #FAFAFA;
-      --white:       #FFFFFF;
+      --bg: #FAFAF9;
+      --surface: #FFFFFF;
+      --ink: #141414;
+      --muted: #5C5C5C;
+      --subtle: #8A8A8A;
+      --line: #E8E8E6;
+      --line-strong: #D4D4D1;
+      --accent: #E11D48;
+      --accent-soft: #FFF1F3;
+      --accent-ink: #9F1239;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --max: 1120px;
+      --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --display: 'Instrument Serif', Georgia, serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--white);
+      font-family: var(--font);
+      background: var(--bg);
       color: var(--ink);
-      line-height: 1.6;
+      line-height: 1.55;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+
+    .wrap {
+      width: min(100% - 48px, var(--max));
+      margin-inline: auto;
     }
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(255,255,255,0.85);
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 250, 249, 0.88);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--fog);
+      border-bottom: 1px solid var(--line);
     }
-    .nav-logo {
-      font-size: 22px; font-weight: 700; color: var(--ember);
-      text-decoration: none; letter-spacing: -0.5px;
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 24px;
     }
-    .nav-links { display: flex; gap: 32px; align-items: center; }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
     .nav-links a {
-      font-size: 15px; color: var(--graphite); text-decoration: none;
-      font-weight: 500; transition: color 0.2s;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.15s ease;
     }
-    .nav-links a:hover { color: var(--ember); }
-    .nav-cta {
-      background: var(--ember); color: var(--white) !important;
-      padding: 10px 24px; border-radius: 999px; font-weight: 600 !important;
-      transition: opacity 0.2s !important;
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      white-space: nowrap;
     }
-    .nav-cta:hover { opacity: 0.85; }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #2a2a2a;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-ink);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line-strong);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ink);
+      background: var(--surface);
+    }
+
+    .btn-sm {
+      height: 36px;
+      padding: 0 14px;
+      font-size: 13px;
+    }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-      background: linear-gradient(160deg, #fff5f2 0%, #ffffff 50%, #fff0f8 100%);
-      position: relative; overflow: hidden;
+      padding: 72px 0 88px;
+      border-bottom: 1px solid var(--line);
     }
-    .hero::before {
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent-ink);
+      margin-bottom: 20px;
+    }
+
+    .eyebrow::before {
       content: '';
-      position: absolute; top: -200px; right: -200px;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+      width: 18px;
+      height: 1.5px;
+      background: var(--accent);
     }
-    .hero::after {
-      content: '';
-      position: absolute; bottom: -150px; left: -150px;
-      width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--ember-light); color: var(--ember);
-      font-size: 13px; font-weight: 600; padding: 8px 18px;
-      border-radius: 999px; margin-bottom: 28px;
-      border: 1px solid rgba(255,107,53,0.2);
-    }
-    .hero-badge i { font-size: 11px; }
+
     .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(52px, 8vw, 88px);
-      line-height: 1.05; letter-spacing: -2px;
-      color: var(--ink); margin-bottom: 24px;
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2.75rem, 5.5vw, 4.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 20px;
+      max-width: 12ch;
     }
-    .hero h1 em { color: var(--ember); font-style: italic; }
-    .hero p {
-      font-size: clamp(17px, 2vw, 20px);
-      color: var(--graphite); max-width: 540px;
-      margin: 0 auto 44px; line-height: 1.7;
-    }
-    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--ember); color: var(--white);
-      padding: 16px 36px; border-radius: 999px;
-      font-size: 16px; font-weight: 600; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px;
-      box-shadow: 0 8px 24px rgba(255,107,53,0.3);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,107,53,0.4); }
-    .btn-secondary {
-      background: var(--white); color: var(--ink);
-      padding: 16px 36px; border-radius: 999px;
-      font-size: 16px; font-weight: 600; text-decoration: none;
-      border: 1.5px solid var(--fog);
-      transition: border-color 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--ember); color: var(--ember); }
 
-    .hero-stats {
-      display: flex; gap: 48px; justify-content: center; margin-top: 72px;
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-lead {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 38ch;
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
       flex-wrap: wrap;
-    }
-    .stat { text-align: center; }
-    .stat-value { font-size: 32px; font-weight: 800; color: var(--ink); letter-spacing: -1px; }
-    .stat-label { font-size: 13px; color: var(--stone); font-weight: 500; margin-top: 4px; }
-
-    /* ── FEATURES ── */
-    .section {
-      padding: 100px 24px;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .section-label {
-      font-size: 12px; font-weight: 700; color: var(--ember);
-      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;
-    }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(36px, 5vw, 52px);
-      line-height: 1.1; letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-    .section-sub {
-      font-size: 18px; color: var(--graphite); max-width: 560px; line-height: 1.7;
+      gap: 12px;
+      margin-bottom: 36px;
     }
 
-    .features-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px; margin-top: 60px;
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
     }
-    .feature-card {
-      background: var(--snow); border: 1px solid var(--fog);
-      border-radius: 24px; padding: 36px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-    }
-    .feature-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: var(--ember-light); display: flex; align-items: center;
-      justify-content: center; font-size: 24px; margin-bottom: 20px;
-    }
-    .feature-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-    .feature-desc { font-size: 15px; color: var(--graphite); line-height: 1.7; }
 
-    /* ── HOW IT WORKS ── */
-    .how-section {
-      background: linear-gradient(135deg, #1A1A2E 0%, #2D1B4E 100%);
-      padding: 100px 24px; text-align: center;
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
-    .how-section .section-label { color: var(--gold); }
-    .how-section .section-title { color: var(--white); }
-    .how-section .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto; }
 
-    .steps {
-      display: flex; justify-content: center; gap: 40px;
-      margin-top: 64px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;
+    .meta-item strong {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
     }
-    .step { text-align: center; max-width: 220px; }
-    .step-number {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--ember); color: var(--white);
-      font-size: 20px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px;
-      box-shadow: 0 8px 20px rgba(255,107,53,0.4);
-    }
-    .step-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
-    .step-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; }
 
-    /* ── APP PREVIEW ── */
-    .preview-section {
-      padding: 100px 24px;
-      text-align: center;
-      background: var(--snow);
+    .meta-item span {
+      font-size: 13px;
+      color: var(--subtle);
     }
-    .preview-grid {
+
+    .hero-visual {
+      position: relative;
       display: flex;
       justify-content: center;
-      gap: 32px;
-      margin-top: 60px;
-      flex-wrap: wrap;
+      align-items: flex-end;
+      min-height: 520px;
     }
-    .preview-img-wrapper {
+
+    .phone {
+      width: min(100%, 260px);
+      background: var(--ink);
+      border-radius: 28px;
+      padding: 10px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.08) inset,
+        0 24px 48px rgba(20, 20, 20, 0.18);
       position: relative;
-      border-radius: 32px;
-      padding: 8px;
-      background: var(--white);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-      border: 1px solid var(--fog);
+      z-index: 2;
+    }
+
+    .phone-inner {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 9 / 19.5;
+    }
+
+    .phone-inner img {
       width: 100%;
-      max-width: 280px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
     }
-    .preview-img-wrapper:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 48px rgba(0,0,0,0.12);
+
+    .phone-float {
+      position: absolute;
+      width: min(42%, 180px);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: 0 16px 40px rgba(20, 20, 20, 0.1);
+      z-index: 1;
     }
-    .preview-img-wrapper img {
+
+    .phone-float img {
       width: 100%;
       height: auto;
-      border-radius: 24px;
       display: block;
-      border: 1px solid var(--fog);
+    }
+
+    .phone-float.left {
+      left: 0;
+      bottom: 72px;
+      transform: rotate(-6deg);
+    }
+
+    .phone-float.right {
+      right: 0;
+      top: 48px;
+      transform: rotate(5deg);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 96px 0;
+    }
+
+    .section-head {
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+
+    .section-head.center {
+      text-align: center;
+      margin-inline: auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      background: var(--surface);
+      border-block: 1px solid var(--line);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .feature {
+      background: var(--surface);
+      padding: 32px 28px;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+
+    .feature-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── PREVIEW ── */
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .preview-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .preview-card figure {
+      background: #F0F0EE;
+      aspect-ratio: 9 / 16;
+      overflow: hidden;
+    }
+
+    .preview-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .preview-card figcaption {
+      padding: 16px 18px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .preview-card strong {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .preview-card span {
+      font-size: 13px;
+      color: var(--subtle);
+    }
+
+    /* ── STEPS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding-top: 8px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      display: block;
+      font-family: var(--display);
+      font-size: 2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .step p {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 28ch;
     }
 
     /* ── CTA ── */
-    .cta-section {
-      padding: 100px 24px; text-align: center;
-      background: var(--snow);
+    .cta {
+      padding: 0 0 96px;
     }
-    .cta-section .section-title { margin-bottom: 20px; }
-    .cta-section .section-sub { margin: 0 auto 40px; }
+
+    .cta-panel {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 24px;
+      padding: 56px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .cta-panel h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.75rem, 3vw, 2.35rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      max-width: 16ch;
+    }
+
+    .cta-panel p {
+      color: rgba(255,255,255,0.62);
+      font-size: 15px;
+      max-width: 36ch;
+      line-height: 1.6;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .cta-actions .btn-primary {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .cta-actions .btn-primary:hover {
+      background: #f0f0f0;
+    }
+
+    .cta-note {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--ink); color: rgba(255,255,255,0.5);
-      padding: 48px 48px 32px;
-    }
-    .footer-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      flex-wrap: wrap; gap: 32px; margin-bottom: 40px;
-    }
-    .footer-brand { font-size: 20px; font-weight: 700; color: var(--ember); margin-bottom: 8px; }
-    .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.4); }
-    .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
-    .footer-links a {
-      font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--ember); }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;
-      font-size: 13px; text-align: center;
+      border-top: 1px solid var(--line);
+      padding: 40px 0 32px;
+      background: var(--surface);
     }
 
-    @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .hero-stats { gap: 28px; }
-      .steps { gap: 28px; }
-      footer { padding: 40px 20px 24px; }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .footer-brand p {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--subtle);
+      max-width: 28ch;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 28px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--subtle);
+    }
+
+    /* ── MOBILE ── */
+    .nav-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .nav-toggle svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .hero h1 { max-width: none; }
+
+      .hero-visual {
+        min-height: 0;
+        padding-bottom: 24px;
+      }
+
+      .phone-float { display: none; }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .preview-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-grid {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px;
+      }
+
+      .preview-card { scroll-snap-align: start; min-width: 220px; }
+    }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(100% - 32px, var(--max)); }
+
+      .nav-toggle { display: inline-flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 16px 16px;
+        gap: 4px;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a {
+        padding: 12px 10px;
+        border-radius: 8px;
+      }
+
+      .nav-links a:hover { background: var(--bg); }
+
+      .nav-links .btn { width: 100%; margin-top: 8px; }
+
+      .hero { padding: 48px 0 64px; }
+
+      .feature-grid { grid-template-columns: 1fr; }
+
+      .section { padding: 72px 0; }
+
+      .cta-panel {
+        padding: 40px 28px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cta-actions { width: 100%; }
+
+      .cta-actions .btn { width: 100%; }
     }
   </style>
-
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">✦ Cupid</a>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="#download" class="nav-cta">Download</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-badge"><i class="fa-solid fa-users"></i> Social discovery reimagined</div>
-    <h1>Find your <em>people</em>,<br />build your circles</h1>
-    <p>Cupid is the ultimate app to MEET NEW PEOPLE. Join communities, spark conversations, and meet people who share your exact vibe.</p>
-    <div class="hero-actions">
-      <a href="https://github.com/Lucas-hedrix/Cupid-App/releases/download/v1.0.1/cupid.apk" class="btn-primary">
-        <i class="fa-solid fa-download"></i> Download for Android
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="brand">
+        <img src="icon.png" alt="" width="32" height="32" />
+        Cupid
       </a>
-      <a href="#how" class="btn-secondary">How it works <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-value"><i class="fa-solid fa-fire" style="color:var(--ember);"></i></div>
-        <div class="stat-label">Fast growing community</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value"><i class="fa-solid fa-star" style="color:var(--gold);"></i></div>
-        <div class="stat-label">Early access</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value"><i class="fa-solid fa-users-rays" style="color:var(--graphite);"></i></div>
-        <div class="stat-label">Join the first Users</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- FEATURES -->
-  <div id="features">
-    <div class="section">
-      <div class="section-label">Why Cupid</div>
-      <h2 class="section-title">More than just<br />swiping</h2>
-      <p class="section-sub">We believe in authentic connections. Engage with your friends, explore niche communities, and express your true self through rich profiles and vibrant feeds.</p>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" id="navToggle">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
-          <div class="feature-title">Join Circles</div>
-          <div class="feature-desc">Discover and join communities based on your hobbies, location, or lifestyle. Find your tribe instantly.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div class="feature-title">Send Sparks</div>
-          <div class="feature-desc">Skip the small talk. Send a Spark with a direct message to instantly grab someone's attention and start connecting.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-images"></i></div>
-          <div class="feature-title">Social Feed</div>
-          <div class="feature-desc">Share updates, post photos, and see what your connections are up to on your personalized timeline.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-masks-theater"></i></div>
-          <div class="feature-title">Show Your Vibe</div>
-          <div class="feature-desc">Set your current Vibe to let people know if you're feeling chill, adventurous, creative, or social today.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-address-card"></i></div>
-          <div class="feature-title">Rich Profiles</div>
-          <div class="feature-desc">Showcase your best self with photo grids, personal bios, and location details that spark real conversations.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
-          <div class="feature-title">Privacy First</div>
-          <div class="feature-desc">Control who sees you, hide your last seen, and engage only with the circles you trust. Your safety is our priority.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- APP PREVIEW -->
-  <section class="preview-section" id="preview">
-    <div class="section-label">Sneak Peek</div>
-    <h2 class="section-title">See Cupid in action</h2>
-    <p class="section-sub" style="margin: 0 auto;">Take a look at the beautiful and intuitive interface designed to make connecting effortless.</p>
-    
-    <div class="preview-grid">
-      <div class="preview-img-wrapper">
-        <img src="screenshot-discover.png" alt="Discover Screen" />
-      </div>
-      <div class="preview-img-wrapper">
-        <img src="screenshot-profile.png" alt="Profile Screen" />
-      </div>
-      <div class="preview-img-wrapper">
-        <img src="screenshot-circles.png" alt="Circles Screen" />
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-section" id="how">
-    <div class="section-label">Simple process</div>
-    <h2 class="section-title">Start connecting today</h2>
-    <p class="section-sub">Getting started with Cupid is fast, free, and fun.</p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-title">Create your profile</div>
-        <div class="step-desc">Sign up in seconds. Add photos, set your vibe, and tell people what you're passionate about.</div>
-      </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-title">Find your circles</div>
-        <div class="step-desc">Discover communities of like-minded people or browse profiles .</div>
-      </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-title">Engage & Share</div>
-        <div class="step-desc">Send Sparks, share posts on the Feed, and chat with new friends in real-time.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section" id="download">
-    <div class="section-label">Get started</div>
-    <h2 class="section-title">Your community is<br />waiting for you</h2>
-    <p class="section-sub">Join and be part of the community of people  already finding meaningful connections and friendships on Cupid.</p>
-    <a href="https://github.com/Lucas-hedrix/Cupid-App/releases/download/v1.0.1/cupid.apk"
-       class="btn-primary" style="display:inline-flex;align-items:center;gap:10px;">
-      <i class="fa-solid fa-download"></i> Download APK — Free
-    </a>
-    <p style="margin-top:16px; font-size:13px; color:var(--stone);"><i class="fa-brands fa-android"></i> Android · v1.0.0 · Requires Android 6.0+</p>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand">✦ Cupid</div>
-        <div class="footer-tagline">MEET NEW PEOPLE.</div>
-      </div>
-      <div class="footer-links">
-        <a href="#">Home</a>
+      <nav class="nav-links" id="navLinks">
         <a href="#features">Features</a>
+        <a href="#preview">App</a>
         <a href="#how">How it works</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="mailto:Lucashedrix5@gmail.com">Contact</a>
-      </div>
+        <a href="privacy.html">Privacy</a>
+        <a href="#download" class="btn btn-primary btn-sm">Download</a>
+      </nav>
     </div>
-    <div class="footer-bottom">
-      © <script>document.write(new Date().getFullYear());</script> Cupid. All rights reserved. Made with <i class="fa-solid fa-heart" style="color:var(--ember);"></i>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Social discovery</p>
+          <h1>Meet people who share your <em>vibe</em></h1>
+          <p class="hero-lead">
+            Cupid helps you find friends, study partners, and communities through shared interests —
+            with sparks, circles, and conversation instead of empty swiping.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="https://github.com/Lucas-hedrix/Cupid-App/releases/download/v1.0.1/cupid.apk">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14" stroke="currentColor" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download for Android
+            </a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
+          <div class="hero-meta">
+            <div class="meta-item">
+              <strong>Free early access</strong>
+              <span>Android APK · v1.0</span>
+            </div>
+            <div class="meta-item">
+              <strong>Privacy-minded</strong>
+              <span>Block, report, hide last seen</span>
+            </div>
+            <div class="meta-item">
+              <strong>18+</strong>
+              <span>Built for adults only</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="phone-float left">
+            <img src="screenshot-circles.png" alt="" />
+          </div>
+          <div class="phone">
+            <div class="phone-inner">
+              <img src="screenshot-discover.png" alt="Cupid Discover screen" />
+            </div>
+          </div>
+          <div class="phone-float right">
+            <img src="screenshot-profile.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features" id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">Features</p>
+          <h2 class="section-title">Built for real connection</h2>
+          <p class="section-sub">
+            Interest-based discovery, lightweight signals, and community spaces —
+            designed to feel social without the pressure of a pure dating feed.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/><path d="M14 14.5c2 .2 3.7 1.4 4.2 3.5"/></svg>
+            </div>
+            <h3>Circles</h3>
+            <p>Join interest-based communities for gaming, study, hangouts, and more — then post and meet people already in your world.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 9-12h-6l0-6z"/></svg>
+            </div>
+            <h3>Sparks</h3>
+            <p>Send a clear, low-pressure signal — same vibe, study buddy, game later — instead of a generic like that goes nowhere.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10h8M8 14h5"/></svg>
+            </div>
+            <h3>Social feed</h3>
+            <p>Share updates with friends or your circles. Keep the conversation going after the first hello.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 1.5"/></svg>
+            </div>
+            <h3>Vibes</h3>
+            <p>Set what you’re open to right now — friendship, gaming, study, chat — so discovery matches the moment.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><circle cx="12" cy="10" r="2.5"/><path d="M8.5 16.5c.8-1.4 2-2 3.5-2s2.7.6 3.5 2"/></svg>
+            </div>
+            <h3>Rich profiles</h3>
+            <p>Photos, bio, and context that help people know who you are before they message.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10.2"/></svg>
+            </div>
+            <h3>Privacy controls</h3>
+            <p>Hide last seen, leave discovery, block and report. You’re in control of who can find you.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="preview">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="section-label">Product</p>
+          <h2 class="section-title">A closer look</h2>
+          <p class="section-sub">Discover people, manage your profile, and join circles — all in one place.</p>
+        </div>
+
+        <div class="preview-grid">
+          <article class="preview-card">
+            <figure>
+              <img src="screenshot-discover.png" alt="Discover screen showing profile cards" />
+            </figure>
+            <figcaption>
+              <strong>Discover</strong>
+              <span>Browse people by vibe</span>
+            </figcaption>
+          </article>
+          <article class="preview-card">
+            <figure>
+              <img src="screenshot-profile.png" alt="Profile screen" />
+            </figure>
+            <figcaption>
+              <strong>Profile</strong>
+              <span>Show who you are</span>
+            </figcaption>
+          </article>
+          <article class="preview-card">
+            <figure>
+              <img src="screenshot-circles.png" alt="Circles community screen" />
+            </figure>
+            <figcaption>
+              <strong>Circles</strong>
+              <span>Find your communities</span>
+            </figcaption>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how" style="background: var(--surface); border-block: 1px solid var(--line);">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">Getting started</p>
+          <h2 class="section-title">Three steps in</h2>
+          <p class="section-sub">Create a profile, set your vibe, and start meeting people who actually fit.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <h3>Create your profile</h3>
+            <p>Sign up, add photos, and set what you’re looking for — friendship, gaming, study, or more.</p>
+          </article>
+          <article class="step">
+            <h3>Explore & join</h3>
+            <p>Browse Discover, join circles around your interests, and follow the feed.</p>
+          </article>
+          <article class="step">
+            <h3>Spark & chat</h3>
+            <p>Send a spark, accept connections, and move into real conversation when it feels right.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="download">
+      <div class="wrap">
+        <div class="cta-panel">
+          <div>
+            <h2>Ready when you are</h2>
+            <p>Download the Android build and join early access. Free, no store listing required.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://github.com/Lucas-hedrix/Cupid-App/releases/download/v1.0.1/cupid.apk">
+              <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14" stroke="currentColor" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download APK
+            </a>
+            <p class="cta-note">Android 6.0+ · Free · Early access</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <img src="icon.png" alt="" width="28" height="28" />
+            Cupid
+          </a>
+          <p>Social discovery for shared interests, circles, and real conversation.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="mailto:Lucashedrix5@gmail.com">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Cupid</span>
+        <span>Built for people who want more than a swipe</span>
+      </div>
     </div>
   </footer>
 
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
 </body>
 </html>
